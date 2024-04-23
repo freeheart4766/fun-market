@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bxt.fm.mapper.GoodsSingleTypesMapper">
+
+    <!--查询所有的商品种类信息-->
+    <select id="getAllSingleTypes" resultType="com.bxt.fm.pojo.GoodsSingleTypes">
+        select goods_single_types_id,types_name,goods_price from goods_single_types where goods_id = #{goodsId}
+    </select>
+
+    <!--增加商品种类信息-->
+    <insert id="addSingleTypes">
+        insert into goods_single_types values(null,#{goodsSingleTypes.goodsId},#{goodsSingleTypes.typesName},#{goodsSingleTypes.goodsPrice})
+    </insert>
+
+    <!--修改商品种类信息-->
+    <update id="updateSingleTypes">
+        update goods_single_types set types_name = #{goodsSingleTypes.typesName},goods_price = #{goodsSingleTypes.goodsPrice} where goods_single_types_id = #{goodsSingleTypes.goodsSingleTypesId}
+    </update>
+
+    <!--删除商品种类信息-->
+    <delete id="deleteSingleTypes">
+        delete from goods_single_types where goods_single_types_id = #{goodsSingleTypesId}
+    </delete>
+
+    <!--查询单个商品种类信息-->
+    <select id="getSingleTypes" resultType="com.bxt.fm.pojo.GoodsSingleTypes">
+        select types_name,goods_price from goods_single_types where goods_single_types_id = #{goodsSingleTypesId}
+    </select>
+
+    <!--查询商品的最低价格-->
+    <select id="getMinPrice" resultType="java.math.BigDecimal">
+        select goods_price from goods_single_types where goods_id = #{goodsId} order by goods_price limit 1
+    </select>
+</mapper>

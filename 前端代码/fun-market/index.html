@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <!-- 
+      定义了一个网页图标：
+        rel="icon"：表示这是一个图标
+        type：指定了图标文件的类型
+        href：表示图标的路径
+    -->
+    <link rel="icon" type="image/png" href="./public/logo.png" />
+    <!--
+      响应式设计，告诉浏览器如何调整页面大小以适应不同的设备屏幕尺寸：
+        name="viewport"：定义了一个视口，这是用户在设备上看到的页面区域。
+        content="width=device-width"：表示视口的宽度应该与设备的屏幕宽度相同。
+        initial-scale=1.0：表示页面的初始缩放级别是100%。
+    -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>趣集</title>
+    <style>
+      *{
+        margin: 0;
+        padding: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

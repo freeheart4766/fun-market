@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bxt.fm.mapper.ReceivingInfoMapper">
+
+    <!--新增收货地址-->
+    <insert id="addReceivingInfo" parameterType="com.bxt.fm.pojo.ReceivingInfo">
+        insert into receiving_info values(null,#{receivingInfo.customerId},#{receivingInfo.receiverName},#{receivingInfo.area},#{receivingInfo.detailAddress},#{receivingInfo.telephone},#{receivingInfo.isDefault})
+    </insert>
+
+    <!--查询所有的收货地址信息-->
+    <select id="getAllReceivingInfo" parameterType="int" resultType="com.bxt.fm.pojo.ReceivingInfo">
+        select receiving_id,receiver_name,area,detail_address,telephone,is_default from receiving_info where customer_id = #{customerId}
+    </select>
+
+    <!--查询单个收货地址信息-->
+    <select id="getOneReceivingInfo" resultType="com.bxt.fm.pojo.ReceivingInfo">
+        select receiver_name,area,detail_address,telephone,is_default from receiving_info where receiving_id = #{receivingId}
+    </select>
+
+    <!--删除收货地址信息-->
+    <delete id="deleteReceivingInfo">
+        delete from receiving_info where receiving_id = #{receivingId}
+    </delete>
+
+    <!--修改收货地址-->
+    <update id="updateReceivingInfo" parameterType="com.bxt.fm.pojo.ReceivingInfo">
+        update receiving_info set receiver_name = #{receivingInfo.receiverName},area = #{receivingInfo.area},detail_address = #{receivingInfo.detailAddress},telephone = #{receivingInfo.telephone},is_default = #{receivingInfo.isDefault} where receiving_id = #{receivingInfo.receivingId}
+    </update>
+
+    <!--获取用户默认地址的id-->
+    <select id="getDefaultReceivingId" resultType="java.lang.Integer">
+        select receiving_id from receiving_info where customer_id = #{customerId} and is_default = "是"
+    </select>
+
+    <!--修改某个地址信息的isDefault的值-->
+    <update id="setReceivingInfoDefault">
+        update receiving_info set is_default = #{isDefault} where receiving_id = #{receivingId}
+    </update>
+
+    <!--获取用户默认地址的area-->
+    <select id="getDefaultArea" resultType="string">
+        select area from receiving_info where customer_id = #{customerId} and is_default = "是"
+    </select>
+</mapper>

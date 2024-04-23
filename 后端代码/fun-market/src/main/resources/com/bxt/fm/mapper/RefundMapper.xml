@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bxt.fm.mapper.RefundMapper">
+
+    <!--查询售后未完成的订单数-->
+    <select id="getRefundIncomplete" resultType="int">
+        select count(refund_id) from refund where customer_id = #{customerId} and status != "已完成"
+    </select>
+</mapper>

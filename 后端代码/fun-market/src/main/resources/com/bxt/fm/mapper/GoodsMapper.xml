@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bxt.fm.mapper.GoodsMapper">
+
+    <!--获取商家的所有商品信息-->
+    <select id="getAllGoods" resultType="com.bxt.fm.pojo.Goods">
+        select goods_id,goods_name,goods_type,goods_inventory,sales_volume,goods_cover_path from goods where seller_id = #{sellerId}
+    </select>
+
+    <!--新增商品信息-->
+    <insert id="addGoods">
+        insert into goods values(null,#{goods.sellerId},#{goods.goodsName},#{goods.goodsType},#{goods.goodsInventory},0,null)
+    </insert>
+
+    <!--修改商品信息-->
+    <update id="updateGoods">
+        update goods set goods_name = #{goods.goodsName},goods_type = #{goods.goodsType},goods_inventory = #{goods.goodsInventory} where goods_id = #{goods.goodsId}
+    </update>
+
+    <!--修改图片信息-->
+    <update id="updateGoodsPicture">
+        update goods set goods_cover_path = #{picturePath} where goods_id = #{goodsId}
+    </update>
+
+    <!--删除商品信息-->
+    <delete id="deleteGoods">
+        delete from goods where goods_id = #{goodsId}
+    </delete>
+
+    <!--获取单个商品信息-->
+    <select id="getGoods" resultType="com.bxt.fm.pojo.Goods">
+        select goods_name,goods_type,goods_inventory,sales_volume,goods_cover_path from goods where goods_id = #{goodsId}
+    </select>
+
+    <!--查询刚刚新增商品的goods_id-->
+    <select id="getGoodsId" resultType="int">
+        select goods_id from goods where seller_id = #{sellerId} order by goods_id desc limit 1
+    </select>
+
+    <!--主页查询销量最高的5个商品-->
+    <select id="getBestSellingProductsTopFive" resultType="com.bxt.fm.pojo.Goods">
+        select goods_id,goods_cover_path from goods order by sales_volume desc limit 5
+    </select>
+
+    <!--主页按销量排序查询30个商品-->
+    <select id="getBestSellingProductsTopThirty" resultType="com.bxt.fm.pojo.Goods">
+        select goods_id,goods_name,goods_cover_path from goods order by sales_volume desc limit 30
+    </select>
+
+    <!--模糊查询符合名称要求的所有商品信息-->
+    <select id="getGoodsByName" resultType="com.bxt.fm.pojo.Goods">
+        select goods_id,goods_name,goods_cover_path from goods where goods_name like "%"#{goodsName}"%" order by sales_volume desc
+    </select>
+
+    <!--查询某类别的所有商品信息-->
+    <select id="getGoodsByType" resultType="com.bxt.fm.pojo.Goods">
+        select goods_id,goods_name,goods_cover_path from goods where goods_type = #{goodsType} order by sales_volume desc
+    </select>
+
+    <!--根据商品id查询商家id-->
+    <select id="getGoodsIdBySellerId" resultType="int">
+        select seller_id from goods where goods_id = #{goodsId}
+    </select>
+</mapper>

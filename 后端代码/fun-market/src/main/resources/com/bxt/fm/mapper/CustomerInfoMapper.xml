@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bxt.fm.mapper.CustomerInfoMapper">
+
+    <!--获取用户的昵称-->
+    <select id="getCustomerName" resultType="java.lang.String">
+        select nickname from customer_info where customer_id = #{customerId}
+    </select>
+
+    <!--获取用户的基本信息-->
+    <select id="getCustomerInfo" resultType="com.bxt.fm.pojo.CustomerInfo">
+        select customer_id,nickname,gender,birthday,description,telephone,email from customer_info where customer_id = #{customerId}
+    </select>
+
+    <!--保存用户的昵称-->
+    <insert id="addCustomerNickname">
+        insert into customer_info values(#{customerId},#{nickname},null,null,null,null,null,null)
+    </insert>
+
+    <!--修改用户的基本信息-->
+    <update id="updateCustomerInfo" parameterType="com.bxt.fm.pojo.CustomerInfo">
+        update customer_info set nickname = #{customerInfo.nickname},gender = #{customerInfo.gender},birthday = #{customerInfo.birthday},description = #{customerInfo.description},telephone = #{customerInfo.telephone},email = #{customerInfo.email} where customer_id = #{customerInfo.customerId}
+    </update>
+
+    <!--将图片的路径保存到数据库中-->
+    <update id="uploadPicture">
+        update customer_info set portrait_path = #{picturePath} where customer_id = #{customerId}
+    </update>
+
+    <!--获取头像路径-->
+    <select id="getHeadPicture" resultType="string">
+        select portrait_path from customer_info where customer_id = #{customerId}
+    </select>
+</mapper>

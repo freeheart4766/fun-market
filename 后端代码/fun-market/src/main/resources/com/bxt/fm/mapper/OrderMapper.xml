@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bxt.fm.mapper.OrderMapper">
+
+    <!--获取某种状态的订单个数-->
+    <select id="getOrderStatus" resultType="int">
+        select count(order_id) from `order` where customer_id = #{customerId} and order_status = #{orderStatus}
+    </select>
+
+    <!--新增订单-->
+    <insert id="addOrder" parameterType="com.bxt.fm.pojo.Order">
+        insert into `order` values(null,#{order.goodsId},#{order.customerId},#{order.receivingId},#{order.orderDate},#{order.number},#{order.goodsName},#{order.goodsPicturePath},#{order.goodsSingleTypeName},#{order.goodsPrice},#{order.pay},#{order.orderStatus})
+    </insert>
+</mapper>

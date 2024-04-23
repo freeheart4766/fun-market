@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bxt.fm.mapper.CustomerMapper">
+
+    <!--检查是否有此用户名-->
+    <select id="existUsername" resultType="com.bxt.fm.pojo.Customer">
+        select customer_id from customer where customer_username = #{username}
+    </select>
+
+    <!--登录，检查用户名和密码是否正确-->
+    <select id="login" resultType="com.bxt.fm.pojo.Customer">
+        select customer_id,customer_username,customer_password from customer where customer_username = #{username}
+    </select>
+
+    <!--注册，将传入的customer对象的数据存入数据库-->
+    <insert id="register" parameterType="com.bxt.fm.pojo.Customer">
+        insert into customer values(null,#{username},#{password},null)
+    </insert>
+
+    <!--修改密码-->
+    <update id="changePassword">
+        update customer set customer_password = #{passwordNew} where customer_id = #{customerId}
+    </update>
+
+    <!--修改支付密码-->
+    <update id="changePayPassword">
+        update customer set customer_pay_password = #{passwordNew} where customer_id = #{customerId}
+    </update>
+
+</mapper>
